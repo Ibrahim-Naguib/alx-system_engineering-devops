@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -t | fmt -w 1
+ls -tw 1 | head
