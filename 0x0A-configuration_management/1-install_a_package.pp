@@ -1,5 +1,6 @@
-# Installs a package
+# Installs flask using pip3.
 package { 'flask':
   ensure   => '2.1.0',
-  provider => 'pip'
+  provider => 'pip3'
+  require => Class['python::pip3'],
 }
