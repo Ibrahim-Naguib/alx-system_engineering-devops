@@ -1,30 +1,17 @@
 #!/usr/bin/env bash
 # Configures Nginx so that its HTTP response contains a custom header
-apt-get update
-apt-get install -y nginx
 
-mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo apt-get update
+sudo apt-get install -y nginx
 
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
+redirect = 'server_name _;\n\trewrite ^\/redirect_me https:\/\/google.com permanent;'
+sudo sed -i 's/server_name _;/$redirect/' /etc/sites-enabled/default
 
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
-service nginx restart
+sudo sed -i '/server_name _/a add_header X-Served-By $HOSTNAME;' /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+sudo service nginx restart
