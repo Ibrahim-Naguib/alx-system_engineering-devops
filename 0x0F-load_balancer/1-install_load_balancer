@@ -7,11 +7,11 @@ sudo apt-get install -y haproxy
 
 server_config=\
 "
-frontend  besthor_frontend
+frontend _frontend
         bind *:80
         mode http
         default_backend besthor_backend
-backend besthor_backend
+backend _backend
         balance roundrobin
 		server 516579-web-01 54.236.30.138:80 check
 		server 516579-web-02 100.25.188.43:80 check
