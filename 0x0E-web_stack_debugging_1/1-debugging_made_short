@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Script that starts nginx service
+service nginx start
