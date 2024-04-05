@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Script that starts nginx service
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx start
+sudo service nginx restart
+rm /run/nginx.pid
