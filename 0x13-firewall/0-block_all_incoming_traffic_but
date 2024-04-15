@@ -1,0 +1,19 @@
+# install ufw
+sudo apt-get install ufw
+
+# enable ufw
+sudo ufw enable
+
+# deny all incoming traffic by default
+sudo ufw default deny incoming
+
+# Allow all outgoing traffic by default
+sudo ufw default allow outgoing
+
+# Allow traffic from some ports
+sudo ufw allow 22/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 80/tcp
+
+# Reload ufw
+sudo ufw reload
