@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Script that exports data in the CSV format
+"""Script that exports data in the CSV format"""
 
 import csv
 import requests
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     for todo in todos:
         if todo.get("completed") is True:
             completed.append(todo.get("title"))
-    with open("{}.csv".format(user_id),"w", newline="") as f:
+    with open("{}.csv".format(user_id), "w", newline="") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         [writer.writerow(
             [user_id, username, todo.get("completed"), todo.get("title")]

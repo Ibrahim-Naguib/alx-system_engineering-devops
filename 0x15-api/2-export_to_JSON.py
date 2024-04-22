@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Script that exports data in the JSON format
+"""Script that exports data in the JSON format"""
 
 import json
 import requests
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     username = user.get("username")
     todos = requests.get(url + "/todos", params={"userId": user_id}).json()
                    
-    with open("{}.json".format(user_id),"w") as f:
+    with open("{}.json".format(user_id), "w") as f:
         json.dump({user_id: [{
                 "task": todo.get("title"),
                 "completed": todo.get("completed"),
