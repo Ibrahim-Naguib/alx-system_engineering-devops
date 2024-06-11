@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
-MASTER_PID=$(ps aux | grep 'gunicorn' | grep -v grep | awk '{print $2}')
-kill -HUP $MASTER_PID
+MASTER_PID=$(ps aux | pgrep 'gunicorn' | pgrep -v pgrep | awk '{print $2}')
+kill -HUP "$MASTER_PID"
