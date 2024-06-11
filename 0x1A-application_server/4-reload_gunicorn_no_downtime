@@ -1,3 +1,26 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
-pgrep gunicorn | xargs kill -HUP
+echo "Finding Gunicorn master process..."
+
+# Get the PIDs of the Gunicorn processes
+PIDS=$(pgrep gunicorn)
+
+if [ -z "$PIDS" ]; then
+  echo "Gunicorn process not found!"
+  exit 1
+fi
+
+echo "Sending HUP signal to Gunicorn master processes: $PIDS"
+
+# Send the HUP signal to each Gunicorn process
+echo "$PIDS" | xargs kill -HUP
+
+# Wait for a few seconds to ensure the reload has started
+sleep 5
+
+# Verify that the workers have been restarted
+echo "Checking the status of Gunicorn processes..."
+pgrep -fl 'gunicorn'
+
+echo "Reload completed."
+
